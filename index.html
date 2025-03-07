@@ -100,7 +100,7 @@
 
     <script>
         function showImage() {
-            var imageNumber = document.getElementById("imageNumber").value.trim();
+            var imagePath = `https://manasatysite.github.io/Resultssite/${imageNumber}.png`;
             if (imageNumber.length !== 6 || isNaN(imageNumber)) {
                 document.getElementById("errorMessage").textContent = "يرجى إدخال رقم صحيح مكون من 6 أرقام";
                 document.getElementById("errorMessage").style.display = "block";
