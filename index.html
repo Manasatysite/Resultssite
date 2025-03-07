@@ -100,7 +100,9 @@
 
     <script>
         function showImage() {
-            var imageNumber = document.getElementById("imageNumber").value; // الحصول على الرقم المدخل
+            var imageNumber = document.getElementById("imageNumber").value.trim(); // الحصول على الرقم المدخل
+
+            // التحقق من صحة الرقم المدخل
             if (imageNumber.length !== 6 || isNaN(imageNumber)) {
                 document.getElementById("errorMessage").textContent = "يرجى إدخال رقم صحيح مكون من 6 أرقام";
                 document.getElementById("errorMessage").style.display = "block";
