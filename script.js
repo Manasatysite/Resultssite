@@ -1,4 +1,4 @@
-﻿function searchImage() {
+function searchImage() {
     const studentId = document.getElementById('searchInput').value.trim();
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = ''; // مسح النتائج السابقة
@@ -29,6 +29,7 @@
             `;
         })
         .catch(error => {
-            resultDiv.innerHTML = `<p>${error.message}</p>`;
+            console.error("حدث خطأ أثناء البحث عن الصورة:", error); // طباعة الخطأ في وحدة التحكم
+            resultDiv.innerHTML = `<p>حدث خطأ: ${error.message}</p>`;
         });
 }
