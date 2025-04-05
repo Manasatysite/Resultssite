@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -13,7 +11,7 @@
 </head>
 <body>
   <h2>ابحث عن اسم الصورة</h2>
-  <input type="text" id="searchInput" placeholder="مثلاً: صورة1.png">
+  <input type="text" id="searchInput" placeholder="مثلاً: صورة1.jpg">
   <button onclick="search()">بحث</button>
   <div id="result"></div>
 
@@ -21,8 +19,7 @@
     let imageList = [];
 
     // غيّري الرابط هنا إلى رابط Web App الخاص بك
-    const sheetURL = "https://script.google.com/macros/s/AKfycbxXqpd7WNfuQ4ZOcS_x7Uo9qAVX_KKDkOZS5rTEJiymaHZtaaKLqD3_gJanjicaakRg/exec
-";
+    const sheetURL = "https://script.google.com/macros/s/AKfycbxXqpd7WNfuQ4ZOcS_x7Uo9qAVX_KKDkOZS5rTEJiymaHZtaaKLqD3_gJanjicaakRg/exec";
 
     fetch(sheetURL)
       .then(response => response.json())
@@ -37,10 +34,11 @@
       const resultDiv = document.getElementById("result");
 
       if (found) {
+        const downloadUrl = found["رابط التحميل"];  // تأكد أن هذا الرابط هو رابط التحميل المباشر
         resultDiv.innerHTML = `
           <p><strong>رابط العرض:</strong> <a href="${found["رابط العرض"]}" target="_blank">فتح</a></p>
-          <p><strong>رابط التحميل:</strong> <a href="${found["رابط التحميل"]}" target="_blank">تحميل</a></p>
-          <img src="${found["رابط التحميل"]}" style="max-width: 400px; border: 1px solid #ccc; margin-top: 10px;">
+          <p><strong>رابط التحميل:</strong> <a href="${downloadUrl}" target="_blank">تحميل</a></p>
+          <img src="${downloadUrl}" style="max-width: 400px; border: 1px solid #ccc; margin-top: 10px;">
         `;
       } else {
         resultDiv.innerHTML = "<p style='color:red;'>لم يتم العثور على الصورة.</p>";
