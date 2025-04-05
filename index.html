@@ -1,18 +1,51 @@
-﻿<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+
+
+<!DOCTYPE html>
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بحث نتائج الطلاب</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>البحث عن صورة من Google Sheets</title>
+  <style>
+    body { font-family: Arial; direction: rtl; padding: 20px; }
+    input, button { padding: 8px; font-size: 16px; }
+    #result { margin-top: 20px; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>بحث نتائج الطلاب</h1>
-        <input type="text" id="searchInput" placeholder="أدخل الرقم السري للطالب">
-        <button onclick="searchImage()">بحث</button>
-        <div id="result"></div>
-    </div>
-    <script src="script.js"></script>
+  <h2>ابحث عن اسم الصورة</h2>
+  <input type="text" id="searchInput" placeholder="مثلاً: صورة1.jpg">
+  <button onclick="search()">بحث</button>
+  <div id="result"></div>
+
+  <script>
+    let imageList = [];
+
+    // غيّري الرابط هنا إلى رابط Web App الخاص بك
+    const sheetURL = "https://script.google.com/macros/s/AKfycbxXqpd7WNfuQ4ZOcS_x7Uo9qAVX_KKDkOZS5rTEJiymaHZtaaKLqD3_gJanjicaakRg/exec
+";
+
+    fetch(sheetURL)
+      .then(response => response.json())
+      .then(data => imageList = data)
+      .catch(err => {
+        document.getElementById("result").innerHTML = "<p style='color:red;'>فشل تحميل البيانات من Google Sheets.</p>";
+      });
+
+    function search() {
+      const name = document.getElementById("searchInput").value.trim();
+      const found = imageList.find(item => item["اسم الملف"] === name);
+      const resultDiv = document.getElementById("result");
+
+      if (found) {
+        resultDiv.innerHTML = `
+          <p><strong>رابط العرض:</strong> <a href="${found["رابط العرض"]}" target="_blank">فتح</a></p>
+          <p><strong>رابط التحميل:</strong> <a href="${found["رابط التحميل"]}" target="_blank">تحميل</a></p>
+          <img src="${found["رابط التحميل"]}" style="max-width: 400px; border: 1px solid #ccc; margin-top: 10px;">
+        `;
+      } else {
+        resultDiv.innerHTML = "<p style='color:red;'>لم يتم العثور على الصورة.</p>";
+      }
+    }
+  </script>
 </body>
 </html>
